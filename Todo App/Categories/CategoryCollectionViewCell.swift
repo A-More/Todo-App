@@ -15,43 +15,51 @@ class CategoryCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UIT
     var addTaskButton: UIButton!
     var cardView: UICardView!
     var taskList: UITableView!
+    var category: Category?
     var cellId = "Cell"
+    var tasks = [Task]()
+    var database = DatabaseAssistant.instance
     
     override func awakeFromNib() {
-
+        tasks = database.getTask(catId: (category?.catId)!)
         cardView = UICardView()
-        cardView.backgroundColor = UIColor.white
+        cardView.backgroundColor = Constants.Colors.COLOR_CARD
         cardView.cornerRadius = Constants.Sizes.SMALL
-        cardView.frame = contentView.frame
+        cardView.frame = CGRect(x: contentView.frame.origin.x, y: contentView.frame.origin.y, width: contentView
+            .frame.width, height: contentView.frame.height - Constants.Sizes.EXTRA_SMALL)
         cardView.clipsToBounds = true
         contentView.addSubview(cardView)
         
-        categoryTitle = UILabel()
-        categoryTitle.text = "Home"
-        var xPos = Constants.Sizes.LARGE
-        var yPos = Constants.Sizes.LARGE
-        categoryTitle.sizeToFit()
-        var width = categoryTitle.frame.width
-        var height = categoryTitle.frame.height
-        categoryTitle.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
-        contentView.addSubview(categoryTitle)
-        
         headerImage = UIImageView()
-        xPos = Constants.Sizes.NO_SPACING
-        yPos = Constants.Sizes.NO_SPACING
-        width = contentView.frame.width
-        height = CGFloat(100)
+        var xPos = Constants.Sizes.NO_SPACING
+        var yPos = Constants.Sizes.NO_SPACING
+        var width = contentView.frame.width
+        var height = CGFloat(100)
         headerImage.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
-        headerImage.image = #imageLiteral(resourceName: "night house")
+        headerImage.applyGradient(colours: Constants.Colors.JOOMLA_GRADIENT, startPoint: CGPoint(x:0, y:0), endPoint: CGPoint(x: 1, y: 1))
+        headerImage.backgroundColor = UIColor.clear
         headerImage.contentMode = UIViewContentMode.top
         headerImage.layer.cornerRadius = Constants.Sizes.SMALL
         headerImage.clipsToBounds = true
         headerImage.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         contentView.addSubview(headerImage)
         
+        categoryTitle = UILabel()
+        categoryTitle.text = category?.catName
+        categoryTitle.textColor = UIColor.white
+        categoryTitle.font = UIFont.boldSystemFont(ofSize: Constants.TextSizes.LARGE)
+        xPos = Constants.Sizes.NORMAL
+        yPos = Constants.Sizes.LARGE
+        categoryTitle.sizeToFit()
+        yPos = (height - categoryTitle.frame.height) / 2
+        width = categoryTitle.frame.width
+        height = categoryTitle.frame.height
+        categoryTitle.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
+        contentView.addSubview(categoryTitle)
+        
         addTaskButton = UIButton()
         addTaskButton.setTitle("+ Add Task", for: UIControlState.normal)
-        addTaskButton.setTitleColor(UIColor.black, for: UIControlState.normal)
+        addTaskButton.setTitleColor(UIColor.white, for: UIControlState.normal)
         addTaskButton.sizeToFit()
         xPos = (contentView.frame.width - addTaskButton.frame.width) / 2
         yPos = (contentView.frame.height - addTaskButton.frame.height - Constants.Sizes.SMALL)
@@ -59,16 +67,15 @@ class CategoryCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UIT
         height = addTaskButton.frame.height
         addTaskButton.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
         contentView.addSubview(addTaskButton)
-        
-        addTaskButton.addTarget(self, action: Selector(("addTask")), for:.touchUpInside)
+        addTaskButton.addTarget(self, action: #selector(CategoryCollectionViewCell.onAddTaskClicked), for:.touchUpInside)
         
         let divider = UIView()
-        divider.backgroundColor = UIColor.gray
+//        divider.backgroundColor = UIColor.red
+        divider.applyGradient(colours: Constants.Colors.MIDNIGHT_GRADIENT)
         xPos = Constants.Sizes.NO_SPACING
-        yPos = yPos - (Constants.Sizes.SMALL + 0.5)
+        yPos = addTaskButton.frame.origin.y - (Constants.Sizes.SMALL - 0.5)
         width = contentView.frame.width
         height = 0.5
-        print("divider yPos\(yPos)")
         divider.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
         contentView.addSubview(divider)
         
@@ -80,13 +87,14 @@ class CategoryCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UIT
         yPos = headerImage.frame.height
         width = contentView.frame.width
         height = divider.frame.origin.y - (yPos)
-        print("divider yPos \(divider.frame.origin.y)")
-        
+        taskList.backgroundColor = Constants.Colors.COLOR_CARD
         taskList.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
         taskList.register(TaskCell.self, forCellReuseIdentifier: cellId)
         taskList.separatorStyle = .none
         contentView.addSubview(taskList)
-        
+     
+        taskList.rowHeight = UITableViewAutomaticDimension
+        taskList.estimatedRowHeight = 120
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -94,24 +102,26 @@ class CategoryCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UIT
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 9
+        return tasks.count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 60
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TaskCell
-        cell.taskLabel.text = "Kapde dhu"
-        cell.reminderLabel.text = "aata dhu"
+        let task: Task = tasks[indexPath.row]
+        cell.taskLabel.text = task.tName
+        cell.reminderLabel.text = task.tRem
         cell.setupView()
-        print("cell width \(cell.frame.width)")
         return cell
     }
     
-    @objc func addTask(){
-        AppDelegate.navigationController.pushViewController(TaskViewController(), animated: true)
+    @objc func onAddTaskClicked(){
+        let controller = TaskViewController()
+        controller.category = category
+        AppDelegate.navigationController.pushViewController(controller, animated: true)
     }
     
 }

@@ -23,8 +23,8 @@ class DatabaseAssistant {
     private let tasks = Table("Task")
     private let tId = Expression<Int64>("id")
     private let tName = Expression<String>("name")
-    private let category = Expression<Int64>("c_id")
-    private let reminder = Expression<String>("reminder")
+    private let tCat = Expression<Int64>("c_id")
+    private let tRem = Expression<String>("reminder")
 
     private init() {
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
@@ -36,7 +36,6 @@ class DatabaseAssistant {
         }
         createCategory()
         createTask()
-
     }
 
     func createCategory(){
@@ -56,14 +55,68 @@ class DatabaseAssistant {
             let createQuery = tasks.create(ifNotExists: true) { table in
                 table.column(tId, primaryKey: .autoincrement)
                 table.column(tName)
-                table.column(category)
-                table.column(reminder)
+                table.column(tCat)
+                table.column(tRem)
             }
             try db?.run(createQuery)
         } catch {
             print("unable to open database")
         }
     }
+    
+    func addCategory(categoryName: String){
+        do{
+                let cat = categories.insert(
+                    catName <- categoryName ?? ""
+                )
+            try db!.run(cat)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func getCategories() -> [Category]{
+        var cat: Category
+        var cats = [Category]()
+        do{
+            for connection in (try(db?.prepare(categories)))!{
+                print("categoryName: \(connection[catName]) categoryId: \(connection[catId]) ")
+                cat = Category(catId: Int(connection[catId]), catName: connection[catName])
+                cats.append(cat)
+            }
+        } catch {
+            print(error)
+        }
+        return cats
+    }
+    
+    func addTask(taskName: String, catId: Int){
+        do{
+            let tsk = tasks.insert(tName <- taskName ?? "", tCat <- Int64(catId), tRem <- "")
+            try db!.run(tsk)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func getTask(catId: Int) -> [Task]{
+        var task: Task
+        var tsks = [Task]()
+        do{
+            let tsk = tasks.filter(tCat == Int64(catId))
+            print(tsk.asSQL())
+            for connection in try(db?.prepare(tsk))!{
+                task = Task(tId: Int(connection[tId]), tName: connection[tName], tCatId: Int(connection[tCat]), tRem: connection[tRem])
+                print("taskName: \(task.tName)")
+                tsks.append(task)
+            }
+        } catch {
+            print(error)
+        }
+        return tsks
+    }
+    
+    
 }
 
 

@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppDelegate.navigationController = UINavigationController(rootViewController: controller)
         AppDelegate.navigationController.navigationBar.isHidden = true
         window?.rootViewController = AppDelegate.navigationController
+        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+        print(paths[0])
         return true
     }
 

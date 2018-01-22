@@ -86,7 +86,12 @@ struct Constants {
     
     // Colors
     struct Colors {
-        
+        static let COLOR_HEADER: UIColor = UIColor(rgb: 0x232526)
+        static let COLOR_CARD: UIColor = UIColor(rgb: 0x414345)
+//        static let COLOR_CARD: UIColor = UIColor(rgb: 0xF5F5F5)
+        static let CLOT_GRADIENT = [UIColor(rgb:0x070000), UIColor(rgb:0x4C0001)]
+        static let JOOMLA_GRADIENT = [UIColor(rgb:0x1E3C72), UIColor(rgb:0x2A5298)]
+        static let MIDNIGHT_GRADIENT = [UIColor(rgb: 0x232526), UIColor(rgb:0x414345)]
     }
     
     // Opacities for UILabel, UIViews, etc.
@@ -134,6 +139,7 @@ struct Constants {
         static var NO_SPACING: CGFloat = 0.0
         static var EXTRA_TINY: CGFloat = 2.0 * screenWidth / 360.0
         static var TINY: CGFloat = 4.0 * screenWidth / 360.0
+        static var EXTRA_SMALL: CGFloat = 6.0 * (screenWidth / 360.0)
         static var SMALL: CGFloat = 8.0 * screenWidth / 360.0
         static var MEDIUM: CGFloat = 12.0 * screenWidth / 360.0
         static var NORMAL: CGFloat = 16.0 * screenWidth / 360.0

@@ -40,8 +40,12 @@ class TaskCell: UITableViewCell {
     func setupView() {
         
         cellView.frame = contentView.frame
+        cellView.backgroundColor = Constants.Colors.COLOR_CARD
+        contentView.backgroundColor = UIColor.clear
         
+        taskLabel.font = UIFont.systemFont(ofSize: Constants.TextSizes.REGULAR)
         taskLabel.sizeToFit()
+        taskLabel.textColor = UIColor.white
         var xPos = Constants.Sizes.NORMAL
         var yPos = Constants.Sizes.NORMAL
         var width = taskLabel.frame.width
@@ -50,7 +54,7 @@ class TaskCell: UITableViewCell {
         cellView.addSubview(taskLabel)
         
         reminderLabel.sizeToFit()
-        print("reminder label width \(reminderLabel.frame.width)")
+        reminderLabel.textColor = UIColor.white
         xPos = contentView.frame.width - (reminderLabel.frame.width + Constants.Sizes.NORMAL)
         yPos = Constants.Sizes.NORMAL
         width = reminderLabel.frame.width
@@ -64,10 +68,16 @@ class TaskCell: UITableViewCell {
         width = Constants.Sizes.NORMAL
         height = Constants.Sizes.NORMAL
         reminderIcon.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
-        reminderIcon.backgroundColor = UIColor.black
+        reminderIcon.image = #imageLiteral(resourceName: "reminder icon")
         cellView.addSubview(reminderIcon)
         
+        var taskFrame = taskLabel.frame
+        width = xPos - Constants.Sizes.NORMAL
+        taskFrame = CGRect(x: taskFrame.origin.x, y: taskFrame.origin.y, width: width, height: taskFrame.height)
+        taskLabel.frame = taskFrame
         contentView.addSubview(cellView)
+
+        self.selectionStyle = .none
         
     }
     

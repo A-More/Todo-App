@@ -20,13 +20,16 @@ class CategoriesViewController: UIViewController, UICollectionViewDelegate, UICo
     var yPos: CGFloat = 0
     var width: CGFloat = 0
     var height: CGFloat = 0
-    
-    var tasks: [String] = []
+//    var tasks: [String] = []
+    var categories: [Category] = []
+    var database: DatabaseAssistant?
     
 
     override func viewDidLoad() {
-        self.view.backgroundColor = UIColor.black
-        
+        self.view.backgroundColor = UIColor.clear
+        self.view.applyGradient(colours: Constants.Colors.MIDNIGHT_GRADIENT)
+        database = DatabaseAssistant.instance
+        categories = (database?.getCategories())!
         dayText = UILabel()
         dayText.text = "Monday"
         dayText.font = UIFont(name: dayText.font.fontName, size: Constants.TextSizes.EXTRA_LARGE_HUMONGOUS)
@@ -38,13 +41,6 @@ class CategoriesViewController: UIViewController, UICollectionViewDelegate, UICo
         height = dayText.frame.height
         dayText.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
         view.addSubview(dayText)
-        
-        let label = UILabel()
-        label.text = "0,0"
-        label.textColor = UIColor.green
-        label.backgroundColor = UIColor.blue
-        label.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
-        view.addSubview(label)
         
         dateText = UILabel()
         dateText.text = "25 Sept"
@@ -59,25 +55,11 @@ class CategoriesViewController: UIViewController, UICollectionViewDelegate, UICo
         view.addSubview(dateText)
         
         setupCollectionView()
-//        collectionView = UICollectionView()
-//        collectionView.backgroundColor = UIColor.gray
-//        xPos = Constants.Sizes.NO_SPACING
-//        yPos = yPos + height + Constants.Sizes.EXTRA_SMALL_HUGE
-//        width = Constants.screenWidth
-//        height = Constants.screenHeight - yPos
-//        collectionView.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
-//        view.addSubview(collectionView)
-        
-//        cardView = UICardView()
-//        cardView.backgroundColor = UIColor.white
-//        cardView.cornerRadius = Constants.Sizes.SMALL
-//        xPos = Constants.Sizes.EXTRA_SMALL_HUGE
-//        yPos = yPos + height + Constants.Sizes.EXTRA_SMALL_HUGE
-//        width = Constants.screenWidth - (Constants.Sizes.EXTRA_SMALL_HUGE * 2)
-//        height = Constants.screenHeight - (yPos + Constants.Sizes.EXTRA_SMALL_HUGE)
-//        cardView.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
-//        view.addSubview(cardView)
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        categories = (database?.getCategories())!
+        collectionView.reloadData()
     }
     
     func setupCollectionView(){
@@ -92,12 +74,11 @@ class CategoriesViewController: UIViewController, UICollectionViewDelegate, UICo
         collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor.clear
         collectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: "CategoryCell")
+        collectionView.register(AddCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "AddCategoryCell")
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.contentInset = UIEdgeInsetsMake(0, Constants.Sizes.EXTRA_SMALL_HUGE, 0, Constants.Sizes.EXTRA_SMALL_HUGE)
         view.addSubview(collectionView)
-        
-
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -105,17 +86,32 @@ class CategoriesViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return categories.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryCollectionViewCell
-        cell.awakeFromNib()
-        return cell
+        
+        if(indexPath.row == categories.count){
+            print("last index \(indexPath.last!)")
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddCategoryCell", for: indexPath) as! AddCategoryCollectionViewCell
+            cell.awakeFromNib()
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryCollectionViewCell
+            cell.category = categories[indexPath.row]
+            cell.awakeFromNib()
+            
+
+            return cell
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-       let foodCell = cell as! CategoryCollectionViewCell
+//        if(indexPath.row != categories.count){
+//            let foodCell = cell as! CategoryCollectionViewCell
+//            foodCell.categoryTitle.text = categories[indexPath.row].catName
+//        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

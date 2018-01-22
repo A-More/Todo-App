@@ -17,9 +17,14 @@
 		586AA7501FD53E2600087866 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586AA74F1FD53E2600087866 /* Constants.swift */; };
 		586AA7581FD5738E00087866 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586AA7571FD5738E00087866 /* CardView.swift */; };
 		5871A8C61FDC088400FA4CDB /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5871A8C51FDC088400FA4CDB /* TaskViewController.swift */; };
+		587DAEBE1FE7DDA1007DD6FB /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587DAEBD1FE7DDA1007DD6FB /* Category.swift */; };
 		58B7C9321FD8000800702863 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B7C9311FD8000800702863 /* CategoryCollectionViewCell.swift */; };
 		58CE8B2E1FE5199A008887CA /* AddCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE8B2D1FE5199A008887CA /* AddCategoryCollectionViewCell.swift */; };
+		58CE8B301FE537B6008887CA /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE8B2F1FE537B6008887CA /* AddCategoryViewController.swift */; };
 		58D2FD751FD9512600696790 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D2FD741FD9512600696790 /* TaskCell.swift */; };
+		58FFA2841FE8ED1F0002B55D /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FFA2831FE8ED1F0002B55D /* Task.swift */; };
+		58FFA2861FE920440002B55D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FFA2851FE920440002B55D /* Utils.swift */; };
+		58FFA2891FE94DBB0002B55D /* Fontbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FFA2881FE94DBB0002B55D /* Fontbook.swift */; };
 		F9A98CA1C7ADB5FFAF854D27 /* Pods_Todo_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 257CC0EF62E9FC65254E23A9 /* Pods_Todo_App.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,9 +42,14 @@
 		586AA74F1FD53E2600087866 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		586AA7571FD5738E00087866 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		5871A8C51FDC088400FA4CDB /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
+		587DAEBD1FE7DDA1007DD6FB /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		58B7C9311FD8000800702863 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		58CE8B2D1FE5199A008887CA /* AddCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		58CE8B2F1FE537B6008887CA /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 		58D2FD741FD9512600696790 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		58FFA2831FE8ED1F0002B55D /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		58FFA2851FE920440002B55D /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		58FFA2881FE94DBB0002B55D /* Fontbook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fontbook.swift; sourceTree = "<group>"; };
 		83DA8A0342FA2CAF4E1D1561 /* Pods-Todo App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Todo App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Todo App/Pods-Todo App.release.xcconfig"; sourceTree = "<group>"; };
 		FBC5484F9889506D9E5C2116 /* Pods-Todo App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Todo App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Todo App/Pods-Todo App.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -93,6 +103,9 @@
 		586AA7371FD53A1600087866 /* Todo App */ = {
 			isa = PBXGroup;
 			children = (
+				58FFA28A1FE94DCD0002B55D /* Fonts */,
+				58FFA2871FE94D990002B55D /* Widgets */,
+				587DAEBC1FE7DD86007DD6FB /* Models */,
 				58541FD41FDE62F70058CD79 /* Database */,
 				5871A8C21FDC07FA00FA4CDB /* Task */,
 				586AA74E1FD53D9100087866 /* Utils */,
@@ -104,7 +117,6 @@
 				586AA73F1FD53A1600087866 /* Assets.xcassets */,
 				586AA7411FD53A1600087866 /* LaunchScreen.storyboard */,
 				586AA7441FD53A1600087866 /* Info.plist */,
-				586AA7571FD5738E00087866 /* CardView.swift */,
 			);
 			path = "Todo App";
 			sourceTree = "<group>";
@@ -123,6 +135,7 @@
 				58B7C9311FD8000800702863 /* CategoryCollectionViewCell.swift */,
 				58D2FD741FD9512600696790 /* TaskCell.swift */,
 				58CE8B2D1FE5199A008887CA /* AddCategoryCollectionViewCell.swift */,
+				58CE8B2F1FE537B6008887CA /* AddCategoryViewController.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -131,6 +144,8 @@
 			isa = PBXGroup;
 			children = (
 				586AA74F1FD53E2600087866 /* Constants.swift */,
+				58FFA2851FE920440002B55D /* Utils.swift */,
+				58FFA2881FE94DBB0002B55D /* Fontbook.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -141,6 +156,30 @@
 				5871A8C51FDC088400FA4CDB /* TaskViewController.swift */,
 			);
 			path = Task;
+			sourceTree = "<group>";
+		};
+		587DAEBC1FE7DD86007DD6FB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				587DAEBD1FE7DDA1007DD6FB /* Category.swift */,
+				58FFA2831FE8ED1F0002B55D /* Task.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		58FFA2871FE94D990002B55D /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				586AA7571FD5738E00087866 /* CardView.swift */,
+			);
+			path = Widgets;
+			sourceTree = "<group>";
+		};
+		58FFA28A1FE94DCD0002B55D /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		B489DF6492A70E6757474779 /* Pods */ = {
@@ -284,13 +323,18 @@
 				58CE8B2E1FE5199A008887CA /* AddCategoryCollectionViewCell.swift in Sources */,
 				586AA73B1FD53A1600087866 /* ViewController.swift in Sources */,
 				58D2FD751FD9512600696790 /* TaskCell.swift in Sources */,
+				58FFA2861FE920440002B55D /* Utils.swift in Sources */,
 				586AA7391FD53A1600087866 /* AppDelegate.swift in Sources */,
 				586AA74D1FD53BD300087866 /* CategoriesViewController.swift in Sources */,
 				58541FD61FDE63100058CD79 /* DatabaseAssistant.swift in Sources */,
+				58FFA2891FE94DBB0002B55D /* Fontbook.swift in Sources */,
 				586AA7501FD53E2600087866 /* Constants.swift in Sources */,
 				5871A8C61FDC088400FA4CDB /* TaskViewController.swift in Sources */,
+				58FFA2841FE8ED1F0002B55D /* Task.swift in Sources */,
 				58B7C9321FD8000800702863 /* CategoryCollectionViewCell.swift in Sources */,
 				586AA7581FD5738E00087866 /* CardView.swift in Sources */,
+				58CE8B301FE537B6008887CA /* AddCategoryViewController.swift in Sources */,
+				587DAEBE1FE7DDA1007DD6FB /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +475,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QH7C6KQ3KS;
 				INFOPLIST_FILE = "Todo App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.akshaymore.Todo-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -447,6 +492,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QH7C6KQ3KS;
 				INFOPLIST_FILE = "Todo App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.akshaymore.Todo-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
