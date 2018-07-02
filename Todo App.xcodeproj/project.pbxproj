@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		580FA91C20CE971C00BD8254 /* ChangeCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580FA91B20CE971C00BD8254 /* ChangeCategoryCell.swift */; };
+		581FC1F020E0C81500D938C1 /* EditCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581FC1EF20E0C81500D938C1 /* EditCategoryViewController.swift */; };
+		581FC1F220E0D70900D938C1 /* EditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581FC1F120E0D70900D938C1 /* EditTaskViewController.swift */; };
 		58541FD61FDE63100058CD79 /* DatabaseAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58541FD51FDE63100058CD79 /* DatabaseAssistant.swift */; };
 		586AA7391FD53A1600087866 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586AA7381FD53A1600087866 /* AppDelegate.swift */; };
 		586AA73B1FD53A1600087866 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586AA73A1FD53A1600087866 /* ViewController.swift */; };
@@ -22,6 +25,7 @@
 		58CE8B2E1FE5199A008887CA /* AddCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE8B2D1FE5199A008887CA /* AddCategoryCollectionViewCell.swift */; };
 		58CE8B301FE537B6008887CA /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE8B2F1FE537B6008887CA /* AddCategoryViewController.swift */; };
 		58D2FD751FD9512600696790 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D2FD741FD9512600696790 /* TaskCell.swift */; };
+		58D7CEBF20E21F4200B171F0 /* ChangeCategoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D7CEBE20E21F4200B171F0 /* ChangeCategoryProtocol.swift */; };
 		58FFA2841FE8ED1F0002B55D /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FFA2831FE8ED1F0002B55D /* Task.swift */; };
 		58FFA2861FE920440002B55D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FFA2851FE920440002B55D /* Utils.swift */; };
 		58FFA2891FE94DBB0002B55D /* Fontbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FFA2881FE94DBB0002B55D /* Fontbook.swift */; };
@@ -30,6 +34,9 @@
 
 /* Begin PBXFileReference section */
 		257CC0EF62E9FC65254E23A9 /* Pods_Todo_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Todo_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		580FA91B20CE971C00BD8254 /* ChangeCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCategoryCell.swift; sourceTree = "<group>"; };
+		581FC1EF20E0C81500D938C1 /* EditCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryViewController.swift; sourceTree = "<group>"; };
+		581FC1F120E0D70900D938C1 /* EditTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskViewController.swift; sourceTree = "<group>"; };
 		58541FD51FDE63100058CD79 /* DatabaseAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseAssistant.swift; sourceTree = "<group>"; };
 		586AA7351FD53A1600087866 /* Todo App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Todo App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		586AA7381FD53A1600087866 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +54,7 @@
 		58CE8B2D1FE5199A008887CA /* AddCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		58CE8B2F1FE537B6008887CA /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 		58D2FD741FD9512600696790 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		58D7CEBE20E21F4200B171F0 /* ChangeCategoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCategoryProtocol.swift; sourceTree = "<group>"; };
 		58FFA2831FE8ED1F0002B55D /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		58FFA2851FE920440002B55D /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		58FFA2881FE94DBB0002B55D /* Fontbook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fontbook.swift; sourceTree = "<group>"; };
@@ -72,6 +80,14 @@
 				257CC0EF62E9FC65254E23A9 /* Pods_Todo_App.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		580FA91A20CE96FE00BD8254 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				580FA91B20CE971C00BD8254 /* ChangeCategoryCell.swift */,
+			);
+			name = Items;
 			sourceTree = "<group>";
 		};
 		58541FD41FDE62F70058CD79 /* Database */ = {
@@ -136,6 +152,7 @@
 				58D2FD741FD9512600696790 /* TaskCell.swift */,
 				58CE8B2D1FE5199A008887CA /* AddCategoryCollectionViewCell.swift */,
 				58CE8B2F1FE537B6008887CA /* AddCategoryViewController.swift */,
+				581FC1EF20E0C81500D938C1 /* EditCategoryViewController.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -153,7 +170,10 @@
 		5871A8C21FDC07FA00FA4CDB /* Task */ = {
 			isa = PBXGroup;
 			children = (
+				580FA91A20CE96FE00BD8254 /* Items */,
 				5871A8C51FDC088400FA4CDB /* TaskViewController.swift */,
+				581FC1F120E0D70900D938C1 /* EditTaskViewController.swift */,
+				58D7CEBE20E21F4200B171F0 /* ChangeCategoryProtocol.swift */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -320,7 +340,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58D7CEBF20E21F4200B171F0 /* ChangeCategoryProtocol.swift in Sources */,
 				58CE8B2E1FE5199A008887CA /* AddCategoryCollectionViewCell.swift in Sources */,
+				581FC1F220E0D70900D938C1 /* EditTaskViewController.swift in Sources */,
 				586AA73B1FD53A1600087866 /* ViewController.swift in Sources */,
 				58D2FD751FD9512600696790 /* TaskCell.swift in Sources */,
 				58FFA2861FE920440002B55D /* Utils.swift in Sources */,
@@ -331,7 +353,9 @@
 				586AA7501FD53E2600087866 /* Constants.swift in Sources */,
 				5871A8C61FDC088400FA4CDB /* TaskViewController.swift in Sources */,
 				58FFA2841FE8ED1F0002B55D /* Task.swift in Sources */,
+				580FA91C20CE971C00BD8254 /* ChangeCategoryCell.swift in Sources */,
 				58B7C9321FD8000800702863 /* CategoryCollectionViewCell.swift in Sources */,
+				581FC1F020E0C81500D938C1 /* EditCategoryViewController.swift in Sources */,
 				586AA7581FD5738E00087866 /* CardView.swift in Sources */,
 				58CE8B301FE537B6008887CA /* AddCategoryViewController.swift in Sources */,
 				587DAEBE1FE7DDA1007DD6FB /* Category.swift in Sources */,

@@ -94,7 +94,7 @@ struct Constants {
         static let MIDNIGHT_GRADIENT = [UIColor(rgb: 0x232526), UIColor(rgb:0x414345)]
     }
     
-    // Opacities for UILabel, UIViews, etc.
+    // Opacities for UILabel, UIViews, etc.			
     struct Opacities {
         static let FULL: CGFloat = 1.0
         static let MEDIUM: CGFloat = 0.7

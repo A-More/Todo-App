@@ -55,6 +55,9 @@ class CategoryCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UIT
         width = categoryTitle.frame.width
         height = categoryTitle.frame.height
         categoryTitle.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(TaskViewController.onChangeCategoryClicked))
+        categoryTitle.addGestureRecognizer(tap)
+        
         contentView.addSubview(categoryTitle)
         
         addTaskButton = UIButton()
@@ -70,8 +73,8 @@ class CategoryCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UIT
         addTaskButton.addTarget(self, action: #selector(CategoryCollectionViewCell.onAddTaskClicked), for:.touchUpInside)
         
         let divider = UIView()
-//        divider.backgroundColor = UIColor.red
-        divider.applyGradient(colours: Constants.Colors.MIDNIGHT_GRADIENT)
+        divider.backgroundColor = UIColor.white
+//        divider.applyGradient(colours: Constants.Colors.MIDNIGHT_GRADIENT)
         xPos = Constants.Sizes.NO_SPACING
         yPos = addTaskButton.frame.origin.y - (Constants.Sizes.SMALL - 0.5)
         width = contentView.frame.width
@@ -105,10 +108,6 @@ class CategoryCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UIT
         return tasks.count
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 60
-//    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TaskCell
         let task: Task = tasks[indexPath.row]
@@ -118,10 +117,21 @@ class CategoryCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UIT
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let task: Task = tasks[indexPath.row]
+        let controller = EditTaskViewController(category: self.category!, task: task)
+        AppDelegate.navigationController.pushViewController(controller, animated: true)
+        
+    }
+    
     @objc func onAddTaskClicked(){
         let controller = TaskViewController()
         controller.category = category
         AppDelegate.navigationController.pushViewController(controller, animated: true)
+    }
+    
+    @objc func onCategoryClicked(){
+        
     }
     
 }

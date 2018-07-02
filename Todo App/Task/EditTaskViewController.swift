@@ -1,4 +1,12 @@
 //
+//  EditTaskViewController.swift
+//  Todo App
+//
+//  Created by Akshay More on 25/06/18.
+//  Copyright © 2018 Akshay More. All rights reserved.
+//
+
+//
 //  TaskViewController.swift
 //  Todo App
 //
@@ -9,8 +17,8 @@
 import UIKit
 import EventKit
 
-class TaskViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ChangeCategoryProtocol{
-
+class EditTaskViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ChangeCategoryProtocol{
+    
     var backButton: UIButton!
     var addTaskLabel: UILabel!
     var addTaskTextView: UITextField!
@@ -29,6 +37,18 @@ class TaskViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var stringDate:String?
     var categoryList: UICollectionView!
     var categories: [Category] = []
+    var task: Task
+    
+    
+    init(category: Category, task: Task) {
+        self.category = category
+        self.task = task
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +65,7 @@ class TaskViewController: UIViewController, UICollectionViewDelegate, UICollecti
         // Do any additional setup after loading the view.
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -60,7 +80,7 @@ class TaskViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         //Label
         addTaskLabel = UILabel()
-        addTaskLabel.text = "Add Task"
+        addTaskLabel.text = "Edit Task"
         addTaskLabel.textColor = UIColor.white
         addTaskLabel.font = UIFont(name: addTaskLabel.font.fontName, size: Constants.TextSizes.EXTRA_LARGE_HUMONGOUS)
         view.addSubview(addTaskLabel)
@@ -68,6 +88,7 @@ class TaskViewController: UIViewController, UICollectionViewDelegate, UICollecti
         addTaskTextView = UITextField()
         addTaskTextView.font = UIFont.systemFont(ofSize: Constants.TextSizes.HUGE)
         addTaskTextView.textColor = UIColor.white
+        addTaskTextView.text = task.tName
         addTaskTextView.attributedPlaceholder = NSAttributedString(string: "enter unacheivable task", attributes: [NSAttributedStringKey.foregroundColor : UIColor.gray])
         view.addSubview(addTaskTextView)
         //underline
@@ -111,18 +132,17 @@ class TaskViewController: UIViewController, UICollectionViewDelegate, UICollecti
         view.addSubview(reminderIcon)
         //categoryList
         let layout = UICollectionViewFlowLayout()
-//        layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize
         layout.estimatedItemSize = CGSize(width: Constants.screenWidth - Constants.Sizes.EXTRA_SMALL_HUGE * 2, height: 20)
         categoryList = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         categoryList.register(ChangeCategoryCell.self, forCellWithReuseIdentifier: "ChangeCategoryCell")
         categoryList.dataSource = self
-        categoryList.delegate = self 
+        categoryList.delegate = self
         view.addSubview(categoryList)
         //datePicker
         datePicker = UIDatePicker()
         datePicker.datePickerMode = .dateAndTime
         datePicker.addTarget(self, action: #selector(TaskViewController.setReminder), for: .valueChanged)
-//        self.view.addSubview(datePicker)
+        //        self.view.addSubview(datePicker)
         
         //CONSTRAINTS
         //backButton
@@ -175,7 +195,6 @@ class TaskViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         //CategoryList
         heightConstraint = categoryList.heightAnchor.constraint(equalToConstant: 0.0)
-
         heightConstraint?.isActive = true
         widthConstraint = categoryList.widthAnchor.constraint(equalToConstant: 0.0)
         widthConstraint?.isActive = true
@@ -183,14 +202,15 @@ class TaskViewController: UIViewController, UICollectionViewDelegate, UICollecti
         categoryList.topAnchor.constraint(equalTo: changeLabel.bottomAnchor).isActive = true
         categoryList.rightAnchor.constraint(equalTo: addTaskTextView.rightAnchor).isActive = true
         categoryList.leftAnchor.constraint(equalTo: addTaskTextView.leftAnchor).isActive = true
+//        categoryList.setContentHuggingPriority(.init(750), for: .horizontal)
         categoryList.addConstraint(heightConstraint!)
-//        categoryList.addConstraint(widthConstraint!)
-       
+        //        categoryList.addConstraint(widthConstraint!)
+        
         //Done Button
         doneButton.translatesAutoresizingMaskIntoConstraints = false
         doneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: Constants.Sizes.LARGE * -1).isActive = true
         doneButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        doneButton.addTarget(self, action: #selector(TaskViewController.addTask), for: .touchUpInside)
+        doneButton.addTarget(self, action: #selector(EditTaskViewController.editTask), for: .touchUpInside)
         
         //Reminder Icon
         reminderIcon.translatesAutoresizingMaskIntoConstraints = false
@@ -217,6 +237,7 @@ class TaskViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChangeCategoryCell", for: indexPath) as! ChangeCategoryCell
         cell.category = categories[indexPath.row]
+        cell.categoryButton.setTitle(categories[indexPath.row].catName, for: .normal)
         cell.changeCategoryProtocol = self
         cell.awakeFromNib()
         return cell
@@ -226,17 +247,24 @@ class TaskViewController: UIViewController, UICollectionViewDelegate, UICollecti
         AppDelegate.navigationController.popViewController(animated: true)
     }
     
-    @objc func addTask(){
+    @objc func editTask(){
         if (addTaskTextView.text != nil && addTaskTextView.text != "" && stringDate != nil) {
             database.addTask(taskName: addTaskTextView.text!, catId: (category?.catId)!, taskReminder: stringDate!)
-            onBackClicked()
+            let newTask = Task(tId: self.task.tId, tName: addTaskTextView.text!, tCatId: self.category!.catId, tRem: stringDate!)
+//            var result = database.updateTask(task: newTask)
+                onBackClicked()
         }
     }
     
     @objc func onChangeCategoryClicked(){
         print("Change Category Clicked")
-        heightConstraint?.constant = Constants.Sizes.HUGE * 4
-//        widthConstraint?.constant = Constants.screenWidth - Constants.Sizes.HUGE * 2
+        if(heightConstraint?.constant == 0.0){
+            heightConstraint?.constant = Constants.Sizes.HUGE * 4
+        } else {
+            heightConstraint?.constant = 0.0
+        }
+        categoryList.layoutIfNeeded()
+        //        widthConstraint?.constant = Constants.screenWidth - Constants.Sizes.HUGE * 2
     }
     
     func onCategorySelected(category:Category){
@@ -244,6 +272,7 @@ class TaskViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.category = category
         print("Selected Category" + category.catName)
         heightConstraint?.constant = 0.0
+        categoryLabel.text = category.catName
     }
     
     @objc func setReminder(){
@@ -283,7 +312,6 @@ class TaskViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "MMM dd, yyyy"
         stringDate = dateFormat.string(from: myDate)
-        reminderButton.text = stringDate
         print("selected date \(stringDate!)")
         do {
             try eventStore?.save(reminder,commit: true)
@@ -293,5 +321,5 @@ class TaskViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         print("Reminder set")
     }
-
+    
 }

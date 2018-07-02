@@ -27,7 +27,6 @@ class TaskCell: UITableViewCell {
         return view
     }()
     
-    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         //setupView()
@@ -53,9 +52,10 @@ class TaskCell: UITableViewCell {
         taskLabel.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
         cellView.addSubview(taskLabel)
         
+        reminderLabel.font = UIFont.systemFont(ofSize: Constants.TextSizes.SMALL)
         reminderLabel.sizeToFit()
         reminderLabel.textColor = UIColor.white
-        xPos = contentView.frame.width - (reminderLabel.frame.width + Constants.Sizes.NORMAL)
+        xPos = (Constants.screenWidth - (Constants.Sizes.EXTRA_SMALL_HUGE * 2)) - (reminderLabel.frame.width + Constants.Sizes.NORMAL)
         yPos = Constants.Sizes.NORMAL
         width = reminderLabel.frame.width
         height = reminderLabel.frame.height
@@ -63,10 +63,11 @@ class TaskCell: UITableViewCell {
         cellView.addSubview(reminderLabel)
         
         reminderIcon = UIImageView()
-        xPos = xPos - (Constants.Sizes.TINY + Constants.Sizes.NORMAL)
+        xPos = xPos - (Constants.Sizes.MEDIUM + Constants.Sizes.MEDIUM)
         yPos = Constants.Sizes.NORMAL
-        width = Constants.Sizes.NORMAL
-        height = Constants.Sizes.NORMAL
+        width = Constants.Sizes.MEDIUM
+        height = Constants.Sizes.MEDIUM
+        
         reminderIcon.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
         reminderIcon.image = #imageLiteral(resourceName: "reminder icon")
         cellView.addSubview(reminderIcon)
@@ -75,8 +76,8 @@ class TaskCell: UITableViewCell {
         width = xPos - Constants.Sizes.NORMAL
         taskFrame = CGRect(x: taskFrame.origin.x, y: taskFrame.origin.y, width: width, height: taskFrame.height)
         taskLabel.frame = taskFrame
+        
         contentView.addSubview(cellView)
-
         self.selectionStyle = .none
         
     }

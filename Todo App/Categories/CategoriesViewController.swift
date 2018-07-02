@@ -23,15 +23,19 @@ class CategoriesViewController: UIViewController, UICollectionViewDelegate, UICo
 //    var tasks: [String] = []
     var categories: [Category] = []
     var database: DatabaseAssistant?
-    
+    let date = Date()
+    let formatter = DateFormatter()
+    var day = "", dateString: String = ""
 
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.clear
         self.view.applyGradient(colours: Constants.Colors.MIDNIGHT_GRADIENT)
         database = DatabaseAssistant.instance
         categories = (database?.getCategories())!
+        getCurrentDate()
+        
         dayText = UILabel()
-        dayText.text = "Monday"
+        dayText.text = day
         dayText.font = UIFont(name: dayText.font.fontName, size: Constants.TextSizes.EXTRA_LARGE_HUMONGOUS)
         dayText.textColor = UIColor.white
         dayText.sizeToFit()
@@ -43,7 +47,7 @@ class CategoriesViewController: UIViewController, UICollectionViewDelegate, UICo
         view.addSubview(dayText)
         
         dateText = UILabel()
-        dateText.text = "25 Sept"
+        dateText.text = dateString
         dateText.font = UIFont(name: dateText.font.fontName, size: Constants.TextSizes.HUGE)
         dateText.textColor = UIColor.white
         dateText.sizeToFit()
@@ -82,7 +86,7 @@ class CategoriesViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-    return 1
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -90,9 +94,7 @@ class CategoriesViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         if(indexPath.row == categories.count){
-            print("last index \(indexPath.last!)")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddCategoryCell", for: indexPath) as! AddCategoryCollectionViewCell
             cell.awakeFromNib()
             return cell
@@ -100,18 +102,12 @@ class CategoriesViewController: UIViewController, UICollectionViewDelegate, UICo
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryCollectionViewCell
             cell.category = categories[indexPath.row]
             cell.awakeFromNib()
-            
-
             return cell
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        if(indexPath.row != categories.count){
-//            let foodCell = cell as! CategoryCollectionViewCell
-//            foodCell.categoryTitle.text = categories[indexPath.row].catName
-//        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -120,6 +116,17 @@ class CategoriesViewController: UIViewController, UICollectionViewDelegate, UICo
         return CGSize(width: width, height: height)
     }
     
+    
+    func getCurrentDate(){
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE, dd MMM"
+        let date = Date()
+        let stringDate = formatter.string(from: date)
+        let dates = stringDate.split(separator: ",", maxSplits: 1, omittingEmptySubsequences: true)
+        day = String(dates[0])
+        dateString = String(dates[1])
+        
+    }
 }
 
 
