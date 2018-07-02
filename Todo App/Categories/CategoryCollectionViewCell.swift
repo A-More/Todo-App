@@ -55,9 +55,9 @@ class CategoryCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UIT
         width = categoryTitle.frame.width
         height = categoryTitle.frame.height
         categoryTitle.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(TaskViewController.onChangeCategoryClicked))
+        categoryTitle.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.onCategoryClicked))
         categoryTitle.addGestureRecognizer(tap)
-        
         contentView.addSubview(categoryTitle)
         
         addTaskButton = UIButton()
@@ -131,7 +131,9 @@ class CategoryCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UIT
     }
     
     @objc func onCategoryClicked(){
-        
+        print("on Category clicked")
+        let controller = EditCategoryViewController(category: self.category!)
+        AppDelegate.navigationController.pushViewController(controller, animated: true)
     }
     
 }

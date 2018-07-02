@@ -13,8 +13,8 @@ class EditCategoryViewController: UIViewController {
     var backButton: UIButton!
     var addTaskLabel: UILabel!
     var addTaskTextView: UITextField!
-    var categoryTitleLabel: UILabel!
-    var categoryLabel: UILabel!
+//    var categoryTitleLabel: UILabel!
+//    var categoryLabel: UILabel!
     var doneButton: UIButton!
     let database = DatabaseAssistant.instance
     var category: Category?
@@ -58,24 +58,13 @@ class EditCategoryViewController: UIViewController {
         addTaskTextView = UITextField()
         addTaskTextView.font = UIFont.systemFont(ofSize: Constants.TextSizes.HUGE)
         addTaskTextView.textColor = UIColor.white
+        addTaskTextView.text = category?.catName
         addTaskTextView.attributedPlaceholder = NSAttributedString(string: "enter category name", attributes: [NSAttributedStringKey.foregroundColor : UIColor.gray])
         view.addSubview(addTaskTextView)
         //underline
         let underline = UIView()
         underline.backgroundColor = UIColor.white
         addTaskLabel.addSubview(underline)
-        //categorytitle
-        categoryTitleLabel = UILabel()
-        categoryTitleLabel.text = "Category"
-        categoryTitleLabel.textColor = UIColor.gray
-        categoryTitleLabel.font = UIFont.systemFont(ofSize: Constants.TextSizes.REGULAR)
-        view.addSubview(categoryTitleLabel)
-        //category
-        categoryLabel = UILabel()
-        categoryLabel.text = "Personal"
-        categoryLabel.textColor = UIColor.white
-        categoryLabel.font = UIFont.systemFont(ofSize: Constants.TextSizes.LARGE)
-        view.addSubview(categoryLabel)
     
         //Done Button
         doneButton = UIButton()
@@ -114,16 +103,6 @@ class EditCategoryViewController: UIViewController {
         underline.rightAnchor.constraint(equalTo: addTaskTextView.rightAnchor).isActive = true
         //        underline.widthAnchor.constraint(equalTo: addTaskTextView.widthAnchor).isActive = true
         underline.heightAnchor.constraint(equalToConstant: Constants.Sizes.EXTRA_TINY).isActive = true
-        
-        //Category Title label
-        categoryTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        categoryTitleLabel.topAnchor.constraint(equalTo: addTaskTextView.bottomAnchor, constant: Constants.Sizes.EXTRA_SMALL_HUGE).isActive = true
-        categoryTitleLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constants.Sizes.EXTRA_SMALL_HUGE).isActive = true
-        
-        //Category Label
-        categoryLabel.translatesAutoresizingMaskIntoConstraints = false
-        categoryLabel.topAnchor.constraint(equalTo: categoryTitleLabel.bottomAnchor, constant:Constants.Sizes.TINY).isActive = true
-        categoryLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constants.Sizes.EXTRA_SMALL_HUGE).isActive = true
         
         //Done Button
         doneButton.translatesAutoresizingMaskIntoConstraints = false
